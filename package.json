@@ -4,7 +4,9 @@
   "description": "A tic-tac-toe game",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "build_mac": "electron-packager . --platform=darwin --arch=x64 --version=0.36.5 Tic-Tac-Toe-Game",
+    "build_linux": "electron-packager . --platform=linux --arch=x64 --version=0.36.5 Tic-Tac-Toe-Game"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   },
   "homepage": "http://blog.wildsky.cc",
   "devDependencies": {
+    "electron-packager": "^5.2.1",
     "electron-prebuilt": "^0.36.0"
   }
 }
