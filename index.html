@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tic-Tac-Toe</title>
+	<style>
+		body {
+			background: #abbaab; /* fallback for old browsers */
+			background: -webkit-linear-gradient(to left, #abbaab , #ffffff); /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to left, #abbaab , #ffffff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			margin: 0;
+			padding: 9;
+			text-align: center;
+		}
+		h1 {
+			color: #343434;
+		}
+		#info {
+			color: #fff;
+			font-size: 1.5rem;
+			font-weight: 600;
+			height: 1.5rem;
+			line-height: 1.5rem;
+			padding: 1rem;
+		}
+		#main table {
+			border: 2.5px solid #343434;
+			border-collapse: collapse;
+			margin: 1rem auto;
+		}
+		#main table tr td {
+			border: 2.5px solid #343434;
+			display: inline-block;
+		}
+		#main table tr td input[type="checkbox"] {
+			display: none;
+		}
+		#main table tr td div {
+			min-width: 100px;
+			min-height: 100px;
+		}
+		.red {
+			background: #FF512F; /* fallback for old browsers */
+			background: -webkit-linear-gradient(to left, #FF512F , #DD2476);
+			background: linear-gradient(to left, #FF512F , #DD2476);
+		}
+		.blue {
+			background: #26D0CE; /* fallback for old browsers */
+			background: -webkit-linear-gradient(to left, #26D0CE , #1A2980);
+			background: linear-gradient(to left, #26D0CE , #1A2980);
+		}
+	</style>
+	<script>
+	var game = {
+		step: 0,
+		players: [],
+		reset: function() {
+			if(game.completed) {
+				var info = document.getElementById("info");
+
+				info.innerHTML = "";
+				info.classList.remove("red");
+				info.classList.remove("blue");
+			}
+			var divs = document.querySelectorAll("#main table tr td div");
+			NodeList.prototype.forEach = Array.prototype.forEach;
+			divs.forEach(function(div) {
+				div.classList.remove("red");
+				div.classList.remove("blue");
+			});
+			game.step = 0;
+			game.completed = false;
+			game.players = [
+				{
+					t : { l : false, c : false, r : false, },
+					m : { l : false, c : false, r : false, },
+					b : { l : false, c : false, r : false, }
+				},
+				{
+					t : { l : false, c : false, r : false, },
+					m : { l : false, c : false, r : false, },
+					b : { l : false, c : false, r : false, }
+				}
+			];
+		},
+		completed: false,
+		check: function(a) {
+			if(game.completed) {
+				game.reset();
+				return;
+			}
+
+			var color = [ 'red', 'blue' ];
+			if(a.classList.length === 0) {
+				var mv = game.step % 2;
+				var mvp = game.players[mv];
+
+				a.classList.add(color[mv]);
+
+				var pos = a.getAttribute("data");
+				mvp[pos[1]][pos[0]] = true;
+
+				if (mvp.t.l && mvp.m.c && mvp.b.r)
+					game.completed = true;
+				else if (mvp.t.r && mvp.m.c && mvp.b.l )
+					game.completed = true;
+
+				else if (mvp.t.l && mvp.t.c && mvp.t.r )
+					game.completed = true;
+				else if (mvp.m.l && mvp.m.c && mvp.m.r )
+					game.completed = true;
+				else if (mvp.b.l && mvp.b.c && mvp.b.r )
+					game.completed = true;
+
+				else if (mvp.t.l && mvp.m.l && mvp.b.l )
+					game.completed = true;
+				else if (mvp.t.c && mvp.m.c && mvp.b.c )
+					game.completed = true;
+				else if (mvp.t.r && mvp.m.r && mvp.b.r )
+					game.completed = true;
+
+				if(game.completed) {
+					document.getElementById("info").classList.add(color[mv]);
+					document.getElementById("info").innerHTML = "Player " + mv + " Win!";
+				}
+				game.step += 1;
+				if(game.step === 9 && !game.completed) {
+					game.completed = true;
+					document.getElementById("info").innerHTML = "Tie!";
+				}
+			}
+		}
+	}
+	var check = game.check;
+	game.reset();
+	</script>
+  </head>
+  <body>
+    <h1>Tic-Tac-Toe</h1>
+    <div id="info"></div>
+	<div id="main">
+		<table>
+			<tr>
+				<td>
+					<input id="lt" type="checkbox">
+					<label for="lt"><div onclick="javascript: check(this)" data="lt"></div></label>
+				</td>
+				<td>
+					<input id="ct" type="checkbox">
+					<label for="ct"><div onclick="javascript: check(this)" data="ct"></div></label>
+				</td>
+				<td>
+					<input id="rt" type="checkbox">
+					<label for="rt"><div onclick="javascript: check(this)" data="rt"></div></label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input id="lm" type="checkbox">
+					<label for="lm"><div onclick="javascript: check(this)" data="lm"></div></label>
+				</td>
+				<td>
+					<input id="cm" type="checkbox">
+					<label for="cm"><div onclick="javascript: check(this)" data="cm"></div></label>
+				</td>
+				<td>
+					<input id="rm" type="checkbox">
+					<label for="rm"><div onclick="javascript: check(this)" data="rm"></div></label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input id="lb" type="checkbox">
+					<label for="lb"><div onclick="javascript: check(this)" data="lb"></div></label>
+				</td>
+				<td>
+					<input id="cb" type="checkbox">
+					<label for="cb"><div onclick="javascript: check(this)" data="cb"></div></label>
+				</td>
+				<td>
+					<input id="rb" type="checkbox">
+					<label for="rb"><div onclick="javascript: check(this)" data="rb"></div></label>
+				</td>
+			</tr>
+		</table>
+	</div>
+  </body>
+</html>
