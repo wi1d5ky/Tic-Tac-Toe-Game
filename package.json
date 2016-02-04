@@ -1,0 +1,26 @@
+{
+  "name": "Tic-Tac-Toe Game",
+  "version": "1.0.0",
+  "description": "A tic-tac-toe game",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wi1d5ky/Tic-Tac-Toe-Game"
+  },
+  "keywords": [
+    "Tic-Tac-Toe",
+    "Game"
+  ],
+  "author": "Wildsky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wi1d5ky/Tic-Tac-Toe-Game/issues"
+  },
+  "homepage": "http://blog.wildsky.cc",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
+}
